@@ -13,12 +13,7 @@
 
 `cp .env.example .env`
 
-`docker run --rm \
--u "$(id -u):$(id -g)" \
--v "$(pwd):/var/www/html" \
--w /var/www/html \
-laravelsail/php83-composer:latest \
-composer install --ignore-platform-reqs`
+`docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/var/www/html" -w /var/www/html laravelsail/php83-composer:latest composer install --ignore-platform-reqs`
 
 `./vendor/bin/sail up -d`
 
@@ -34,7 +29,7 @@ composer install --ignore-platform-reqs`
 
 `./vendor/bin/sail artisan queue:work`
 
-Пример запроса (если воркер не отработал то ничего не вернет. Не выполняет запрос real-time, если нет данных ставит в очередь):
+Пример запроса (**ВНИМАНИЕ**: если воркер не отработал то запрос ничего не вернет. Он не запрашивает рейты real-time, если нет данных по какому-то дню то ставит в очередь):
 
 `GET http://localhost/api/rates?date=2024-05-25&currencyCode=USD&baseCurrencyCode=EUR`
 
